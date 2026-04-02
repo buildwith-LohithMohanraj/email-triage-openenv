@@ -1,0 +1,10 @@
+name: email-triage-env
+description: Multi-email triage environment
+version: 1.0
+
+tasks:
+  - easy
+  - medium
+  - hard
+
+reward_range: [-1, 2]
