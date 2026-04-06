@@ -1,0 +1,17 @@
+[project]
+name = "email-triage-openenv"
+version = "0.1.0"
+description = "Email triage OpenEnv environment"
+authors = [
+    {name = "Lohith", email = "lohithmohanraj2006@gmail.com"}
+]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "requests",
+    "openai"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
