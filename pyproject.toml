@@ -5,12 +5,17 @@ description = "Email triage OpenEnv environment"
 authors = [
     {name = "Lohith", email = "lohithmohanraj2006@gmail.com"}
 ]
+
 dependencies = [
     "fastapi",
     "uvicorn",
     "requests",
-    "openai"
+    "openai",
+    "openenv-core>=0.2.0"
 ]
+
+[project.scripts]
+start = "server.app:app"
 
 [build-system]
 requires = ["setuptools", "wheel"]
