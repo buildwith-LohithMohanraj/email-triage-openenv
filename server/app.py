@@ -1,17 +1,16 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import random
+import uvicorn
 
 app = FastAPI()
 
 # ================= MODELS =================
-
 class Action(BaseModel):
     action_type: str
     content: str
 
-# ================= ENV STATE =================
-
+# ================= DATA =================
 emails = [
     {
         "email_id": "1",
@@ -45,7 +44,6 @@ def home():
     return {"message": "Email Triage OpenEnv Running"}
 
 
-# 🔥 FIXED: POST (not GET)
 @app.post("/reset")
 def reset():
     global current_email
@@ -67,8 +65,6 @@ def step(action: Action):
 
     reward = 0.0
     done = False
-
-    # ================= LOGIC =================
 
     if action.action_type == "classify":
         if action.content == current_email["type"]:
@@ -98,3 +94,13 @@ def step(action: Action):
             "actions": [action.content]
         }
     }
+
+# ================= MAIN FUNCTION =================
+
+def main():
+    uvicorn.run("server.app:app", host="0.0.0.0", port=7860)
+
+
+# REQUIRED ENTRY POINT
+if __name__ == "__main__":
+    main()
