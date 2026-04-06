@@ -1,26 +1,21 @@
-def grade_email(email, actions):
-    subject = email["subject"].lower()
-    score = 0.0
+# env/graders.py
 
-    # Easy: spam
-    if "lottery" in subject:
-        if "spam" in actions and "archive" in actions:
-            return 1.0
-        elif "spam" in actions:
-            return 0.5
+from typing import Dict
 
-    # Medium: work
-    elif "report" in subject:
-        if "high" in actions and "reply" in actions:
-            return 1.0
-        elif "high" in actions:
-            return 0.5
 
-    # Hard: complaint
-    elif "complaint" in subject:
-        if "escalate" in actions and "reply" in actions:
-            return 1.0
-        elif "escalate" in actions:
-            return 0.5
+def grade_task(task: Dict, action: str) -> float:
+    """
+    Returns a score between 0.0 and 1.0
+    """
 
-    return round(score, 2)
+    expected = task.get("expected_output", "").strip().lower()
+    action = (action or "").strip().lower()
+
+    if action == expected:
+        return 1.0
+
+    # Partial scoring logic (safe fallback)
+    if expected in action:
+        return 0.5
+
+    return 0.0
